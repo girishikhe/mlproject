@@ -11,6 +11,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+from src.mlProject.components.data_transformation import DataTranformation
+from src.mlProject.components.data_transformation import DataTransformationConfig
+
 @dataclass
 class DataIngestionConfig:
     raw_data_path:str=os.path.join("artifacts","raw.csv")
@@ -25,7 +28,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("data ingestion started")
         try:
-            data=pd.read_csv(r"C:\Users\use\Desktop\gemstone.csv")
+            data=pd.read_csv(r"C:\Users\use\Downloads\stud.csv")
             logging.info(" reading a df")
 
             os.makedirs(os.path.dirname(os.path.join(self.ingestion_config.raw_data_path)),exist_ok=True)
@@ -59,5 +62,6 @@ class DataIngestion:
 if __name__=="__main__":
     obj=DataIngestion()
 
-    obj.initiate_data_ingestion()
-                                
+    train_data, test_data=obj.initiate_data_ingestion()
+    data_transformation=DataTranformation()
+    data_transformation.initialize_data_transformation(train_data, test_data)

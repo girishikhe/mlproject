@@ -35,7 +35,7 @@ class DataTranformation:
             num_pipeline =Pipeline(
                 steps=[
                 ("imputer", SimpleImputer(strategy="median")),
-                ("scalar", StandardScaler())
+                ('scaler',StandardScaler())
                        
                        ]
                 
@@ -45,7 +45,7 @@ class DataTranformation:
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder", OneHotEncoder()),
-                    ("scalar", StandardScaler())
+                    ('scaler',StandardScaler(with_mean=False))
                 ]
             )
             
@@ -100,7 +100,7 @@ class DataTranformation:
             logging.info(f"Saved preprocessing object.")
             
             save_object(
-                file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                file_path=self.data_transformation_confg.preprocessor_file_object,
                 obj=preprocessing_obj
             )
             
@@ -115,6 +115,9 @@ class DataTranformation:
             logging.info("Exception occured in the initiate_datatransformation")
 
             raise customexception(e,sys)
+        
+
+                                
         
 
     
