@@ -7,6 +7,7 @@ from src.mlProject.logger.logging import logging
 from src.mlProject.exception.exception import customexception
 
 from sklearn.metrics import r2_score, mean_absolute_error,mean_squared_error
+from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path, obj):
     try:
@@ -20,16 +21,20 @@ def save_object(file_path, obj):
     except Exception as e:
         raise customexception(e, sys)
     
-def evaluate_model(X_train,y_train,X_test,y_test,models):
+def evaluate_model(X_train,y_train,X_test,y_test,models,param):
     try:
         report = {}
         for i in range(len(models)):
             model = list(models.values())[i]
+            para=param[list(models.keys())[i]]
             # Train model
-            model.fit(X_train,y_train)
+            #model.fit(X_train,y_train)
+            gs = GridSearchCV(model,para,cv=3)
+            gs.fit(X_train,y_train)
 
             
-
+            model.set_params(**gs.best_params_)
+            model.fit(X_train,y_train)
             # Predict Testing data
             y_test_pred =model.predict(X_test)
 
