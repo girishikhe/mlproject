@@ -13,6 +13,10 @@ from pathlib import Path
 
 from src.mlProject.components.data_transformation import DataTranformation
 from src.mlProject.components.data_transformation import DataTransformationConfig
+from src.mlProject.components.model_trainer import ModelTrainer
+from src.mlProject.components.model_trainer import ModelTrainerConfig
+
+
 
 @dataclass
 class DataIngestionConfig:
@@ -63,5 +67,11 @@ if __name__=="__main__":
     obj=DataIngestion()
 
     train_data, test_data=obj.initiate_data_ingestion()
+    
     data_transformation=DataTranformation()
-    data_transformation.initialize_data_transformation(train_data, test_data)
+    train_arr, test_arr=data_transformation.initialize_data_transformation(train_data, test_data)
+    
+    
+    model_trainer= ModelTrainer()
+    print(model_trainer.initiate_model_training(train_arr, test_arr))
+    
