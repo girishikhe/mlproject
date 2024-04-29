@@ -6,5 +6,9 @@ scikit-learn
 catboost
 xgboost
 Flask
+mlflow==2.2.2
+dvc
 
 -e .
+
+

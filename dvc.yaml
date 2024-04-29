@@ -1,0 +1,16 @@
+stages:
+  training:
+    cmd: python src\mlProject\pipeline\training_pipeline.py
+    deps:
+      - src\mlProject\pipeline\training_pipeline.py
+      - src\mlProject\components\data_ingestion.py
+      - src\mlProject\components\data_transformation.py
+      - src\mlProject\components\model_evaluation.py
+      - src\mlProject\components\model_trainer.py
+
+    outs:
+      - artifacts/raw.csv
+      - artifacts/test.csv
+      - artifacts/train.csv
+      - artifacts/preprocessor.pkl
+      - artifacts/model.pkl
